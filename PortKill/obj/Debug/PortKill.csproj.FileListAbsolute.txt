@@ -1,0 +1,32 @@
+d:\visual studio 2015\Projects\PortKill\PortKill\bin\Debug\PortKill.exe.config
+d:\visual studio 2015\Projects\PortKill\PortKill\obj\Debug\PortKill.csprojResolveAssemblyReference.cache
+d:\visual studio 2015\Projects\PortKill\PortKill\obj\Debug\PortKill.Properties.Resources.resources
+d:\visual studio 2015\Projects\PortKill\PortKill\obj\Debug\PortKill.csproj.GenerateResource.Cache
+d:\visual studio 2015\Projects\PortKill\PortKill\bin\Debug\PortKill.exe
+d:\visual studio 2015\Projects\PortKill\PortKill\bin\Debug\PortKill.pdb
+d:\visual studio 2015\Projects\PortKill\PortKill\obj\Debug\PortKill.exe
+d:\visual studio 2015\Projects\PortKill\PortKill\obj\Debug\PortKill.pdb
+d:\visual studio 2015\Projects\PortKill\PortKill\obj\Debug\PortKill.PortFrm.resources
+D:\visual studio 2015\Projects\PortKill\PortKill\obj\Debug\PortKill.ProgramFrm.resources
+D:\Project\Source\Repos\端口占用进程杀手PortKill\PortKill\bin\Debug\PortKill.exe.config
+D:\Project\Source\Repos\端口占用进程杀手PortKill\PortKill\obj\Debug\PortKill.exe
+D:\Project\Source\Repos\端口占用进程杀手PortKill\PortKill\obj\Debug\PortKill.pdb
+D:\Project\Source\Repos\端口占用进程杀手PortKill\PortKill\bin\Debug\PortKill.exe
+D:\Project\Source\Repos\端口占用进程杀手PortKill\PortKill\bin\Debug\PortKill.pdb
+D:\Project\Source\Repos\端口占用进程杀手PortKill\PortKill\obj\Debug\PortKill.csprojAssemblyReference.cache
+D:\Project\Source\Repos\端口占用进程杀手PortKill\PortKill\obj\Debug\PortKill.ProgramFrm.resources
+D:\Project\Source\Repos\端口占用进程杀手PortKill\PortKill\obj\Debug\PortKill.PortFrm.resources
+D:\Project\Source\Repos\端口占用进程杀手PortKill\PortKill\obj\Debug\PortKill.Properties.Resources.resources
+D:\Project\Source\Repos\端口占用进程杀手PortKill\PortKill\obj\Debug\PortKill.csproj.GenerateResource.cache
+D:\Project\Source\Repos\端口占用进程杀手PortKill\PortKill\obj\Debug\PortKill.csproj.CoreCompileInputs.cache
+D:\Project\Source\Repos\PortKill\PortKill\bin\Debug\PortKill.exe.config
+D:\Project\Source\Repos\PortKill\PortKill\obj\Debug\PortKill.exe
+D:\Project\Source\Repos\PortKill\PortKill\obj\Debug\PortKill.pdb
+D:\Project\Source\Repos\PortKill\PortKill\bin\Debug\PortKill.exe
+D:\Project\Source\Repos\PortKill\PortKill\bin\Debug\PortKill.pdb
+D:\Project\Source\Repos\PortKill\PortKill\obj\Debug\PortKill.ProgramFrm.resources
+D:\Project\Source\Repos\PortKill\PortKill\obj\Debug\PortKill.PortFrm.resources
+D:\Project\Source\Repos\PortKill\PortKill\obj\Debug\PortKill.Properties.Resources.resources
+D:\Project\Source\Repos\PortKill\PortKill\obj\Debug\PortKill.csproj.GenerateResource.Cache
+D:\Project\Source\Repos\PortKill\PortKill\obj\Debug\PortKill.csprojAssemblyReference.cache
+D:\Project\Source\Repos\PortKill\PortKill\obj\Debug\PortKill.csproj.CoreCompileInputs.cache
