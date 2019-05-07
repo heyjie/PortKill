@@ -20,8 +20,6 @@ namespace PortKill
         {
             InitializeComponent();
             tabControl1.DrawItem += TabControl1_DrawItem;
-            progressBar.Visible = false;
-            labelMsg.Visible = false;
         }
 
         private void TabControl1_DrawItem(object sender, DrawItemEventArgs e)
@@ -188,8 +186,6 @@ namespace PortKill
         {
             buttonEnd.Enabled = false;
             buttonStart.Enabled = false;
-            progressBar.Visible = true;
-            labelMsg.Visible = true;
             labelMsg.Text = "正在扫描端口";
             progressBar.Value = 0;
             dataGridViewPort.Rows.Clear();
@@ -269,8 +265,6 @@ namespace PortKill
                 }
                 buttonEnd.Enabled = true;
                 buttonStart.Enabled = true;
-                progressBar.Visible = false;
-                labelMsg.Visible = false;
                 labelMsg.Text = "扫描完成";
                 progressBar.Value = 0;
             }));
