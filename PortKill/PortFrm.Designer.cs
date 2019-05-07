@@ -30,33 +30,34 @@ namespace PortKill
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(PortFrm));
             this.buttonEnd = new System.Windows.Forms.Button();
             this.buttonStart = new System.Windows.Forms.Button();
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.tabPage1 = new System.Windows.Forms.TabPage();
-            this.buttonFind = new System.Windows.Forms.Button();
             this.dataGridViewPort = new System.Windows.Forms.DataGridView();
             this.Proto = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.LocalAddress = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.ForeignAddress = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.State = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.PID = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.panel2 = new System.Windows.Forms.Panel();
             this.labelMsg = new System.Windows.Forms.Label();
+            this.panel1 = new System.Windows.Forms.Panel();
             this.textBoxFind = new System.Windows.Forms.TextBox();
+            this.buttonFind = new System.Windows.Forms.Button();
             this.tabPage2 = new System.Windows.Forms.TabPage();
             this.button5 = new System.Windows.Forms.Button();
             this.comboBox1 = new System.Windows.Forms.ComboBox();
             this.textBox4 = new System.Windows.Forms.TextBox();
             this.textBox3 = new System.Windows.Forms.TextBox();
-            this.panel1 = new System.Windows.Forms.Panel();
             this.progressBar = new PortKill.Control.MyProgressBar();
-            this.panel2 = new System.Windows.Forms.Panel();
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewPort)).BeginInit();
-            this.tabPage2.SuspendLayout();
-            this.panel1.SuspendLayout();
             this.panel2.SuspendLayout();
+            this.panel1.SuspendLayout();
+            this.tabPage2.SuspendLayout();
             this.SuspendLayout();
             // 
             // buttonEnd
@@ -111,19 +112,6 @@ namespace PortKill
             this.tabPage1.Size = new System.Drawing.Size(771, 423);
             this.tabPage1.TabIndex = 0;
             this.tabPage1.Text = "端口查杀";
-            // 
-            // buttonFind
-            // 
-            this.buttonFind.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.buttonFind.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.buttonFind.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(51)))), ((int)(((byte)(153)))), ((int)(((byte)(255)))));
-            this.buttonFind.Location = new System.Drawing.Point(638, 4);
-            this.buttonFind.Name = "buttonFind";
-            this.buttonFind.Size = new System.Drawing.Size(121, 29);
-            this.buttonFind.TabIndex = 12;
-            this.buttonFind.Text = "查找进程占用";
-            this.buttonFind.UseVisualStyleBackColor = true;
-            this.buttonFind.Click += new System.EventHandler(this.t_btn_kill_Click);
             // 
             // dataGridViewPort
             // 
@@ -182,21 +170,44 @@ namespace PortKill
             this.PID.MinimumWidth = 50;
             this.PID.Name = "PID";
             // 
+            // panel2
+            // 
+            this.panel2.Controls.Add(this.buttonStart);
+            this.panel2.Controls.Add(this.buttonEnd);
+            this.panel2.Controls.Add(this.labelMsg);
+            this.panel2.Controls.Add(this.progressBar);
+            this.panel2.Dock = System.Windows.Forms.DockStyle.Top;
+            this.panel2.Location = new System.Drawing.Point(4, 4);
+            this.panel2.Name = "panel2";
+            this.panel2.Size = new System.Drawing.Size(763, 46);
+            this.panel2.TabIndex = 12;
+            // 
             // labelMsg
             // 
             this.labelMsg.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.labelMsg.AutoSize = true;
             this.labelMsg.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(51)))), ((int)(((byte)(153)))), ((int)(((byte)(255)))));
-            this.labelMsg.Location = new System.Drawing.Point(670, 16);
+            this.labelMsg.Location = new System.Drawing.Point(612, 16);
             this.labelMsg.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.labelMsg.Name = "labelMsg";
             this.labelMsg.Size = new System.Drawing.Size(63, 15);
             this.labelMsg.TabIndex = 11;
             this.labelMsg.Text = "Message";
             // 
+            // panel1
+            // 
+            this.panel1.Controls.Add(this.textBoxFind);
+            this.panel1.Controls.Add(this.buttonFind);
+            this.panel1.Dock = System.Windows.Forms.DockStyle.Bottom;
+            this.panel1.Location = new System.Drawing.Point(4, 381);
+            this.panel1.Name = "panel1";
+            this.panel1.Size = new System.Drawing.Size(763, 38);
+            this.panel1.TabIndex = 15;
+            // 
             // textBoxFind
             // 
             this.textBoxFind.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.textBoxFind.BackColor = System.Drawing.SystemColors.Window;
             this.textBoxFind.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(51)))), ((int)(((byte)(153)))), ((int)(((byte)(255)))));
             this.textBoxFind.Location = new System.Drawing.Point(187, 6);
             this.textBoxFind.Name = "textBoxFind";
@@ -204,6 +215,19 @@ namespace PortKill
             this.textBoxFind.TabIndex = 13;
             this.textBoxFind.Text = "请输入端口号，来查找占用该端口的进程";
             this.textBoxFind.Enter += new System.EventHandler(this.textBoxFind_Enter);
+            // 
+            // buttonFind
+            // 
+            this.buttonFind.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.buttonFind.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.buttonFind.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(51)))), ((int)(((byte)(153)))), ((int)(((byte)(255)))));
+            this.buttonFind.Location = new System.Drawing.Point(638, 4);
+            this.buttonFind.Name = "buttonFind";
+            this.buttonFind.Size = new System.Drawing.Size(121, 29);
+            this.buttonFind.TabIndex = 12;
+            this.buttonFind.Text = "查找进程占用";
+            this.buttonFind.UseVisualStyleBackColor = true;
+            this.buttonFind.Click += new System.EventHandler(this.t_btn_kill_Click);
             // 
             // tabPage2
             // 
@@ -223,7 +247,7 @@ namespace PortKill
             // button5
             // 
             this.button5.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.button5.Location = new System.Drawing.Point(662, 6);
+            this.button5.Location = new System.Drawing.Point(632, 6);
             this.button5.Margin = new System.Windows.Forms.Padding(4);
             this.button5.Name = "button5";
             this.button5.Size = new System.Drawing.Size(100, 69);
@@ -268,38 +292,16 @@ namespace PortKill
             this.textBox3.Size = new System.Drawing.Size(763, 332);
             this.textBox3.TabIndex = 0;
             // 
-            // panel1
-            // 
-            this.panel1.Controls.Add(this.textBoxFind);
-            this.panel1.Controls.Add(this.buttonFind);
-            this.panel1.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.panel1.Location = new System.Drawing.Point(4, 381);
-            this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(763, 38);
-            this.panel1.TabIndex = 15;
-            // 
             // progressBar
             // 
             this.progressBar.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.progressBar.BackColor = System.Drawing.Color.Black;
             this.progressBar.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(51)))), ((int)(((byte)(153)))), ((int)(((byte)(153)))));
-            this.progressBar.Location = new System.Drawing.Point(529, 9);
+            this.progressBar.Location = new System.Drawing.Point(471, 9);
             this.progressBar.Margin = new System.Windows.Forms.Padding(4);
             this.progressBar.Name = "progressBar";
             this.progressBar.Size = new System.Drawing.Size(133, 29);
             this.progressBar.TabIndex = 10;
-            // 
-            // panel2
-            // 
-            this.panel2.Controls.Add(this.buttonStart);
-            this.panel2.Controls.Add(this.buttonEnd);
-            this.panel2.Controls.Add(this.labelMsg);
-            this.panel2.Controls.Add(this.progressBar);
-            this.panel2.Dock = System.Windows.Forms.DockStyle.Top;
-            this.panel2.Location = new System.Drawing.Point(4, 4);
-            this.panel2.Name = "panel2";
-            this.panel2.Size = new System.Drawing.Size(763, 46);
-            this.panel2.TabIndex = 12;
             // 
             // PortFrm
             // 
@@ -307,18 +309,19 @@ namespace PortKill
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(779, 452);
             this.Controls.Add(this.tabControl1);
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Margin = new System.Windows.Forms.Padding(4);
             this.Name = "PortFrm";
             this.Text = "端口进程杀手";
             this.tabControl1.ResumeLayout(false);
             this.tabPage1.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewPort)).EndInit();
-            this.tabPage2.ResumeLayout(false);
-            this.tabPage2.PerformLayout();
-            this.panel1.ResumeLayout(false);
-            this.panel1.PerformLayout();
             this.panel2.ResumeLayout(false);
             this.panel2.PerformLayout();
+            this.panel1.ResumeLayout(false);
+            this.panel1.PerformLayout();
+            this.tabPage2.ResumeLayout(false);
+            this.tabPage2.PerformLayout();
             this.ResumeLayout(false);
 
         }

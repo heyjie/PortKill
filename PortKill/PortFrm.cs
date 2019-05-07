@@ -251,7 +251,7 @@ namespace PortKill
                         scanList.Add(scan);
                     }
                 }
-                //Thread.Sleep(100);
+                Thread.Sleep(10);
                 this.Invoke(new Action(() => {
                     progressBar.Increment(2);
                 }));
