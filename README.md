@@ -27,4 +27,4 @@
 
 ## 关于作者
 
-![debug](/image/wechat.png)
+![wechat](/image/wechat.jpg)
