@@ -4,7 +4,8 @@
 ![debug](/image/debug.png)
 
 ## PortKlii是什么?
-做开发的时候总有端口被占用，这个程序是为了解决端口占用。
+在做开发的时候发现总有端口被占用，这个程序是为了解决端口占用。
+可以直接运行PortKill\bin\Debug目录下的PortKill.exe来启动程序。
 
 ## PortKlii有哪些功能？
 
