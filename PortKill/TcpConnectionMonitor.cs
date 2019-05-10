@@ -141,6 +141,4 @@ public enum TCP_CONNECTION_STATE : int
     LAST_ACK,
     TIME_WAIT,
     DELETE_TCP
-
-
 }

@@ -6,6 +6,7 @@ using System.Diagnostics;
 using System.Drawing;
 using System.IO;
 using System.Linq;
+using System.Runtime.InteropServices;
 using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading;
@@ -20,6 +21,40 @@ namespace PortKill
         {
             InitializeComponent();
             tabControl1.DrawItem += TabControl1_DrawItem;
+            //根据进程显示图片
+            dataGridViewPort.CellFormatting += DataGridViewPort_CellFormatting;
+        }
+
+        private void DataGridViewPort_CellFormatting(object sender, DataGridViewCellFormattingEventArgs e)
+        {
+            if (dataGridViewPort.Columns[e.ColumnIndex].Name.Equals("ProcessIcon")&& dataGridViewPort.Rows[e.RowIndex].Cells["ProcessIcon"].Value==null)
+            {
+                int pid = (int)dataGridViewPort.Rows[e.RowIndex].Cells["Pid"].Value;
+                Icon ico = null;
+                IntPtr pHandle = IntPtr.Zero;
+                pHandle = OpenProcess(PROCESS_ALL_ACCESS, 0, pid);
+                StringBuilder sb = new StringBuilder(MAX_PATH);
+                GetModuleFileNameEx(pHandle, IntPtr.Zero, sb, MAX_PATH);
+                CloseHandle(pHandle);
+                //获取图标
+                IntPtr[] largeIcons, smallIcons;
+                int IconCount = ExtractIconEx(sb.ToString(), -1, null, null, 0);
+                largeIcons = new IntPtr[IconCount];
+                smallIcons = new IntPtr[IconCount];
+                ExtractIconEx(sb.ToString(), 0, largeIcons, smallIcons, IconCount);
+                IntPtr icon = new IntPtr(0);
+                try
+                {
+                    icon = largeIcons[0];
+                    ico = Icon.FromHandle(icon);
+                }
+                catch (Exception ex)
+                {
+                    Console.Out.WriteLine(ex.Message);
+                }
+                dataGridViewPort.Rows[e.RowIndex].Cells["ProcessIcon"].Value = ico;
+                //调整行高到能正常显示缩略图
+            }
         }
 
         private void TabControl1_DrawItem(object sender, DrawItemEventArgs e)
@@ -226,42 +261,41 @@ namespace PortKill
         //获取所有端口占用信息
         private void MonitorTcpConnections()
         {
-            Console.WriteLine("Proto  Local Address          Foreign Address        State           PID");
-            List<String> rows = new List<string>();
             List<Scan> scanList = new List<Scan>();
             for (int j = 0; j < 50; j++)
             {
                 TcpConnectionTableHelper.MIB_TCPROW_OWNER_PID[] tcpProgressInfoTable = TcpConnectionTableHelper.GetAllTcpConnections();
                 int tableRowCount = tcpProgressInfoTable.Length;
+                Process[] ps = Process.GetProcesses();
+                List<Process> processes = new List<Process>(ps);
                 for (int i = 0; i < tableRowCount; i++)
                 {
                     TcpConnectionTableHelper.MIB_TCPROW_OWNER_PID row = tcpProgressInfoTable[i];
                     string source = string.Format("{0}:{1}", TcpConnectionTableHelper.GetIpAddress(row.localAddr), row.LocalPort);
                     string dest = string.Format("{0}:{1}", TcpConnectionTableHelper.GetIpAddress(row.remoteAddr), row.RemotePort);
-                    string outputRow = string.Format("{0, -7}{1, -23}{2, -23}{3, -16}{4}", "TCP", source, dest, (TCP_CONNECTION_STATE)row.state, row.owningPid);
-                    Console.WriteLine("{0, -80}", outputRow);
-                    if (!rows.Contains(outputRow))
+                    Process proname =processes.Find(x=> 
                     {
-                        rows.Add(outputRow);
-                        Scan scan = new Scan("TCP", source, dest, (TCP_CONNECTION_STATE)row.state, row.owningPid);
-                        scanList.Add(scan);
-                    }
+                        if (x.Id == row.owningPid) return true;
+                        else return false;
+                    });
+                    Scan scan = new Scan("TCP", source, dest, (TCP_CONNECTION_STATE)row.state, row.owningPid, proname.ProcessName);
+                    scanList.Add(scan);
                 }
-                Thread.Sleep(10);
                 this.Invoke(new Action(() => {
                     progressBar.Increment(2);
                 }));
             }
-
+            
             this.Invoke(new Action(() => {
                 foreach (var item in scanList)
                 {
                     int index = dataGridViewPort.Rows.Add();
-                    dataGridViewPort.Rows[index].Cells[0].Value = item.type;
-                    dataGridViewPort.Rows[index].Cells[1].Value = item.source;
-                    dataGridViewPort.Rows[index].Cells[2].Value = item.dest;
-                    dataGridViewPort.Rows[index].Cells[3].Value = item.state;
-                    dataGridViewPort.Rows[index].Cells[4].Value = item.owningPid;
+                    dataGridViewPort.Rows[index].Cells["Proto"].Value = item.type;
+                    dataGridViewPort.Rows[index].Cells["LocalAddress"].Value = item.source;
+                    dataGridViewPort.Rows[index].Cells["ForeignAddress"].Value = item.dest;
+                    dataGridViewPort.Rows[index].Cells["State"].Value = item.state;
+                    dataGridViewPort.Rows[index].Cells["PID"].Value = item.owningPid;
+                    dataGridViewPort.Rows[index].Cells["PName"].Value = item.ProcessName;
                 }
                 buttonEnd.Enabled = true;
                 buttonStart.Enabled = true;
@@ -292,13 +326,6 @@ namespace PortKill
             //同类的符号还有&&和||前者表示必须前一个命令执行成功才会执行后面的命令，后者表示必须前一个命令执行失败才会执行后面的命令
             //获取cmd窗口的输出信息
             string output = p.StandardOutput.ReadToEnd();
-            //StreamReader reader = p.StandardOutput;
-            //string line=reader.ReadLine();
-            //while (!reader.EndOfStream)
-            //{
-            //    str += line + "  ";
-            //    line = reader.ReadLine();
-            //}
             p.WaitForExit();//等待程序执行完退出进程
             p.Close();
             return output;
@@ -334,5 +361,41 @@ namespace PortKill
         {
             textBoxFind.Text=string.Empty;
         }
+
+        private bool IsWindowExist(IntPtr handle)
+        {
+            //判断窗口是否存在
+            return (!(GetWindow(new HandleRef(this, handle), 4) != IntPtr.Zero) && IsWindowVisible(new HandleRef(this, handle)));
+        }
+
+        private const int MAX_PATH = 260;
+        public const int PROCESS_ALL_ACCESS = 0x000F0000 | 0x00100000 | 0xFFF;
+
+        [DllImport("user32.dll", CharSet = CharSet.Auto, ExactSpelling = true)]
+        public static extern IntPtr GetWindow(HandleRef hWnd, int uCmd);
+
+        [DllImport("user32.dll", CharSet = CharSet.Auto)]
+        public static extern bool IsWindowVisible(HandleRef hWnd);
+
+        public delegate bool EnumThreadWindowsCallback(IntPtr hWnd, IntPtr lParam);
+        [DllImport("user32.dll", CharSet = CharSet.Auto, SetLastError = true)]
+        public static extern bool EnumWindows(EnumThreadWindowsCallback callback, IntPtr extraData);
+
+        [DllImport("user32.dll", CharSet = CharSet.Auto, SetLastError = true)]
+        public static extern int GetWindowThreadProcessId(HandleRef handle, out int processId);
+
+        [DllImport("Kernel32.dll")]
+        public extern static IntPtr OpenProcess(int fdwAccess, int fInherit, int IDProcess);
+
+        [DllImport("shell32.dll", EntryPoint = "GetModuleFileName")]
+        private static extern uint GetModuleFileName(IntPtr hModule, [Out] StringBuilder lpszFileName, int nSize);
+
+        [System.Runtime.InteropServices.DllImport("shell32.dll")]
+        private static extern int ExtractIconEx(string lpszFile, int niconIndex, IntPtr[] phiconLarge, IntPtr[] phiconSmall, int nIcons);
+
+        [DllImport("psapi.dll")]
+        static extern uint GetModuleFileNameEx(IntPtr hProcess, IntPtr hModule, [Out] StringBuilder lpBaseName, [In] [MarshalAs(UnmanagedType.U4)] int nSize);
+        [DllImport("Kernel32.dll")]
+        public extern static bool CloseHandle(IntPtr hObject);
     }
 }
