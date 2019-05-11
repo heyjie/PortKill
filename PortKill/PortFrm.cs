@@ -6,6 +6,7 @@ using System.Diagnostics;
 using System.Drawing;
 using System.IO;
 using System.Linq;
+using System.Reflection;
 using System.Runtime.InteropServices;
 using System.Text;
 using System.Text.RegularExpressions;
@@ -19,7 +20,14 @@ namespace PortKill
     {
         public PortFrm()
         {
+            //设置窗体的双缓冲           
+            this.SetStyle(ControlStyles.OptimizedDoubleBuffer | ControlStyles.ResizeRedraw | ControlStyles.AllPaintingInWmPaint, true);
+            this.UpdateStyles();
             InitializeComponent();
+            //利用反射设置DataGridView的双缓冲           
+            Type dgvType = this.dataGridViewPort.GetType();
+            PropertyInfo pi = dgvType.GetProperty("DoubleBuffered", BindingFlags.Instance | BindingFlags.NonPublic);
+            pi.SetValue(this.dataGridViewPort, true, null);
             tabControl1.DrawItem += TabControl1_DrawItem;
             dataGridViewPort.CellFormatting += DataGridViewPort_CellFormatting;
         }
@@ -228,6 +236,27 @@ namespace PortKill
             }).Start();
         }
 
+        //搜索按钮
+        private void buttonFind_Click(object sender, EventArgs e)
+        {
+            int port;
+            bool b = int.TryParse(textBoxFind.Text, out port);
+            if (!b)
+            {
+                MessageBox.Show("请输入正确的端口号");
+                return;
+            }
+            buttonEnd.Enabled = false;
+            buttonStart.Enabled = false;
+            buttonFind.Enabled = false;
+            labelMsg.Text = "正在扫描端口";
+            progressBar.Value = 0;
+            dataGridViewPort.Rows.Clear();
+            new Thread(() => {
+                MonitorTcpConnections(port);
+            }).Start();
+        }
+
         //关闭进程按钮
         private void button1_Click(object sender, EventArgs e)
         {
@@ -417,9 +446,9 @@ namespace PortKill
             textBox3.Text=RunCmd(textBox4.Text);
         }
 
-        private void textBoxFind_Enter(object sender, EventArgs e)
+        private void textBoxFind_Click(object sender, EventArgs e)
         {
-            textBoxFind.Text=string.Empty;
+            textBoxFind.SelectAll();
         }
 
         private bool IsWindowExist(IntPtr handle)
@@ -457,25 +486,5 @@ namespace PortKill
         static extern uint GetModuleFileNameEx(IntPtr hProcess, IntPtr hModule, [Out] StringBuilder lpBaseName, [In] [MarshalAs(UnmanagedType.U4)] int nSize);
         [DllImport("Kernel32.dll")]
         public extern static bool CloseHandle(IntPtr hObject);
-
-        private void buttonFind_Click(object sender, EventArgs e)
-        {
-            int port;
-            bool b = int.TryParse(textBoxFind.Text, out port);
-            if (!b)
-            {
-                MessageBox.Show("请输入正确的端口号");
-                return;
-            }
-            buttonEnd.Enabled = false;
-            buttonStart.Enabled = false;
-            buttonFind.Enabled = false;
-            labelMsg.Text = "正在扫描端口";
-            progressBar.Value = 0;
-            dataGridViewPort.Rows.Clear();
-            new Thread(() => {
-                MonitorTcpConnections(port);
-            }).Start();
-        }
     }
 }

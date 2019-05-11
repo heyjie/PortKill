@@ -45,7 +45,6 @@ namespace PortKill
             this.PName = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.panel2 = new System.Windows.Forms.Panel();
             this.labelMsg = new System.Windows.Forms.Label();
-            this.progressBar = new PortKill.Control.MyProgressBar();
             this.panel1 = new System.Windows.Forms.Panel();
             this.textBoxFind = new System.Windows.Forms.TextBox();
             this.buttonFind = new System.Windows.Forms.Button();
@@ -54,6 +53,7 @@ namespace PortKill
             this.comboBox1 = new System.Windows.Forms.ComboBox();
             this.textBox4 = new System.Windows.Forms.TextBox();
             this.textBox3 = new System.Windows.Forms.TextBox();
+            this.progressBar = new PortKill.Control.MyProgressBar();
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewPort)).BeginInit();
@@ -211,17 +211,6 @@ namespace PortKill
             this.labelMsg.TabIndex = 11;
             this.labelMsg.Text = "未扫描";
             // 
-            // progressBar
-            // 
-            this.progressBar.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.progressBar.BackColor = System.Drawing.Color.Black;
-            this.progressBar.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(51)))), ((int)(((byte)(153)))), ((int)(((byte)(153)))));
-            this.progressBar.Location = new System.Drawing.Point(471, 9);
-            this.progressBar.Margin = new System.Windows.Forms.Padding(4);
-            this.progressBar.Name = "progressBar";
-            this.progressBar.Size = new System.Drawing.Size(133, 29);
-            this.progressBar.TabIndex = 10;
-            // 
             // panel1
             // 
             this.panel1.Controls.Add(this.textBoxFind);
@@ -242,7 +231,7 @@ namespace PortKill
             this.textBoxFind.Size = new System.Drawing.Size(445, 25);
             this.textBoxFind.TabIndex = 13;
             this.textBoxFind.Text = "请输入端口号";
-            this.textBoxFind.Enter += new System.EventHandler(this.textBoxFind_Enter);
+            this.textBoxFind.Click += new System.EventHandler(this.textBoxFind_Click);
             // 
             // buttonFind
             // 
@@ -324,6 +313,17 @@ namespace PortKill
             this.textBox3.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
             this.textBox3.Size = new System.Drawing.Size(763, 332);
             this.textBox3.TabIndex = 0;
+            // 
+            // progressBar
+            // 
+            this.progressBar.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.progressBar.BackColor = System.Drawing.Color.Black;
+            this.progressBar.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(51)))), ((int)(((byte)(153)))), ((int)(((byte)(153)))));
+            this.progressBar.Location = new System.Drawing.Point(471, 9);
+            this.progressBar.Margin = new System.Windows.Forms.Padding(4);
+            this.progressBar.Name = "progressBar";
+            this.progressBar.Size = new System.Drawing.Size(133, 29);
+            this.progressBar.TabIndex = 10;
             // 
             // PortFrm
             // 
