@@ -265,7 +265,7 @@ namespace PortKill
             {
                 return;
             }
-            int pid = (int)selectRows[0].Cells[4].Value;
+            int pid = (int)selectRows[0].Cells["PID"].Value;
             Process process = Process.GetProcessById(pid);
             if (process == null)
             {
