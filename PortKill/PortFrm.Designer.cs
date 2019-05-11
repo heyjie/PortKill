@@ -36,6 +36,13 @@ namespace PortKill
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.tabPage1 = new System.Windows.Forms.TabPage();
             this.dataGridViewPort = new System.Windows.Forms.DataGridView();
+            this.ProcessIcon = new System.Windows.Forms.DataGridViewImageColumn();
+            this.Proto = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.LocalAddress = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.ForeignAddress = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.State = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.PID = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.PName = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.panel2 = new System.Windows.Forms.Panel();
             this.labelMsg = new System.Windows.Forms.Label();
             this.progressBar = new PortKill.Control.MyProgressBar();
@@ -47,13 +54,6 @@ namespace PortKill
             this.comboBox1 = new System.Windows.Forms.ComboBox();
             this.textBox4 = new System.Windows.Forms.TextBox();
             this.textBox3 = new System.Windows.Forms.TextBox();
-            this.ProcessIcon = new System.Windows.Forms.DataGridViewImageColumn();
-            this.Proto = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.LocalAddress = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.ForeignAddress = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.State = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.PID = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.PName = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewPort)).BeginInit();
@@ -140,6 +140,53 @@ namespace PortKill
             this.dataGridViewPort.Size = new System.Drawing.Size(763, 331);
             this.dataGridViewPort.TabIndex = 8;
             // 
+            // ProcessIcon
+            // 
+            this.ProcessIcon.HeaderText = "";
+            this.ProcessIcon.Name = "ProcessIcon";
+            this.ProcessIcon.Resizable = System.Windows.Forms.DataGridViewTriState.True;
+            this.ProcessIcon.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic;
+            this.ProcessIcon.Width = 50;
+            // 
+            // Proto
+            // 
+            this.Proto.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
+            this.Proto.HeaderText = "协议";
+            this.Proto.MinimumWidth = 50;
+            this.Proto.Name = "Proto";
+            // 
+            // LocalAddress
+            // 
+            this.LocalAddress.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
+            this.LocalAddress.HeaderText = "本机地址";
+            this.LocalAddress.Name = "LocalAddress";
+            // 
+            // ForeignAddress
+            // 
+            this.ForeignAddress.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
+            this.ForeignAddress.HeaderText = "远程地址";
+            this.ForeignAddress.MinimumWidth = 50;
+            this.ForeignAddress.Name = "ForeignAddress";
+            // 
+            // State
+            // 
+            this.State.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
+            this.State.HeaderText = "状态";
+            this.State.MinimumWidth = 50;
+            this.State.Name = "State";
+            // 
+            // PID
+            // 
+            this.PID.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
+            this.PID.HeaderText = "进程ID";
+            this.PID.MinimumWidth = 50;
+            this.PID.Name = "PID";
+            // 
+            // PName
+            // 
+            this.PName.HeaderText = "进程名";
+            this.PName.Name = "PName";
+            // 
             // panel2
             // 
             this.panel2.Controls.Add(this.buttonStart);
@@ -194,7 +241,7 @@ namespace PortKill
             this.textBoxFind.Name = "textBoxFind";
             this.textBoxFind.Size = new System.Drawing.Size(445, 25);
             this.textBoxFind.TabIndex = 13;
-            this.textBoxFind.Text = "请输入端口号，来查找占用该端口的进程";
+            this.textBoxFind.Text = "请输入端口号";
             this.textBoxFind.Enter += new System.EventHandler(this.textBoxFind_Enter);
             // 
             // buttonFind
@@ -206,9 +253,9 @@ namespace PortKill
             this.buttonFind.Name = "buttonFind";
             this.buttonFind.Size = new System.Drawing.Size(121, 29);
             this.buttonFind.TabIndex = 12;
-            this.buttonFind.Text = "查找进程占用";
+            this.buttonFind.Text = "搜索";
             this.buttonFind.UseVisualStyleBackColor = true;
-            this.buttonFind.Click += new System.EventHandler(this.t_btn_kill_Click);
+            this.buttonFind.Click += new System.EventHandler(this.buttonFind_Click);
             // 
             // tabPage2
             // 
@@ -277,53 +324,6 @@ namespace PortKill
             this.textBox3.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
             this.textBox3.Size = new System.Drawing.Size(763, 332);
             this.textBox3.TabIndex = 0;
-            // 
-            // ProcessIcon
-            // 
-            this.ProcessIcon.HeaderText = "";
-            this.ProcessIcon.Name = "ProcessIcon";
-            this.ProcessIcon.Resizable = System.Windows.Forms.DataGridViewTriState.True;
-            this.ProcessIcon.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic;
-            this.ProcessIcon.Width = 50;
-            // 
-            // Proto
-            // 
-            this.Proto.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
-            this.Proto.HeaderText = "协议";
-            this.Proto.MinimumWidth = 50;
-            this.Proto.Name = "Proto";
-            // 
-            // LocalAddress
-            // 
-            this.LocalAddress.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
-            this.LocalAddress.HeaderText = "本机地址";
-            this.LocalAddress.Name = "LocalAddress";
-            // 
-            // ForeignAddress
-            // 
-            this.ForeignAddress.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
-            this.ForeignAddress.HeaderText = "远程地址";
-            this.ForeignAddress.MinimumWidth = 50;
-            this.ForeignAddress.Name = "ForeignAddress";
-            // 
-            // State
-            // 
-            this.State.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
-            this.State.HeaderText = "状态";
-            this.State.MinimumWidth = 50;
-            this.State.Name = "State";
-            // 
-            // PID
-            // 
-            this.PID.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
-            this.PID.HeaderText = "进程ID";
-            this.PID.MinimumWidth = 50;
-            this.PID.Name = "PID";
-            // 
-            // PName
-            // 
-            this.PName.HeaderText = "进程名";
-            this.PName.Name = "PName";
             // 
             // PortFrm
             // 

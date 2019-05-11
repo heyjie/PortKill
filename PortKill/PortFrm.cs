@@ -21,7 +21,6 @@ namespace PortKill
         {
             InitializeComponent();
             tabControl1.DrawItem += TabControl1_DrawItem;
-            //根据进程显示图片
             dataGridViewPort.CellFormatting += DataGridViewPort_CellFormatting;
         }
 
@@ -53,7 +52,6 @@ namespace PortKill
                     Console.Out.WriteLine(ex.Message);
                 }
                 dataGridViewPort.Rows[e.RowIndex].Cells["ProcessIcon"].Value = ico;
-                //调整行高到能正常显示缩略图
             }
         }
 
@@ -221,6 +219,7 @@ namespace PortKill
         {
             buttonEnd.Enabled = false;
             buttonStart.Enabled = false;
+            buttonFind.Enabled = false;
             labelMsg.Text = "正在扫描端口";
             progressBar.Value = 0;
             dataGridViewPort.Rows.Clear();
@@ -262,30 +261,36 @@ namespace PortKill
         private void MonitorTcpConnections()
         {
             List<Scan> scanList = new List<Scan>();
+            List<String> rows = new List<string>();
+            Process[] ps = Process.GetProcesses();
+            List<Process> processes = new List<Process>(ps);
             for (int j = 0; j < 50; j++)
             {
                 TcpConnectionTableHelper.MIB_TCPROW_OWNER_PID[] tcpProgressInfoTable = TcpConnectionTableHelper.GetAllTcpConnections();
                 int tableRowCount = tcpProgressInfoTable.Length;
-                Process[] ps = Process.GetProcesses();
-                List<Process> processes = new List<Process>(ps);
+                
                 for (int i = 0; i < tableRowCount; i++)
                 {
                     TcpConnectionTableHelper.MIB_TCPROW_OWNER_PID row = tcpProgressInfoTable[i];
                     string source = string.Format("{0}:{1}", TcpConnectionTableHelper.GetIpAddress(row.localAddr), row.LocalPort);
                     string dest = string.Format("{0}:{1}", TcpConnectionTableHelper.GetIpAddress(row.remoteAddr), row.RemotePort);
+                    string outputRow = string.Format("{0, -7}{1, -23}{2, -23}{3, -16}{4}", "TCP", source, dest, (TCP_CONNECTION_STATE)row.state, row.owningPid);
                     Process proname =processes.Find(x=> 
                     {
                         if (x.Id == row.owningPid) return true;
                         else return false;
                     });
-                    Scan scan = new Scan("TCP", source, dest, (TCP_CONNECTION_STATE)row.state, row.owningPid, proname.ProcessName);
-                    scanList.Add(scan);
+                    if (!rows.Contains(outputRow))
+                    {
+                        rows.Add(outputRow);
+                        Scan scan = new Scan("TCP", source, dest, (TCP_CONNECTION_STATE)row.state, row.owningPid, proname.ProcessName);
+                        scanList.Add(scan);
+                    }
                 }
                 this.Invoke(new Action(() => {
                     progressBar.Increment(2);
                 }));
             }
-            
             this.Invoke(new Action(() => {
                 foreach (var item in scanList)
                 {
@@ -299,6 +304,61 @@ namespace PortKill
                 }
                 buttonEnd.Enabled = true;
                 buttonStart.Enabled = true;
+                buttonFind.Enabled = true;
+                labelMsg.Text = "扫描完成";
+                progressBar.Value = 0;
+            }));
+        }
+
+        //根据端口获取占用信息
+        private void MonitorTcpConnections(int port)
+        {
+            List<Scan> scanList = new List<Scan>();
+            List<String> rows = new List<string>();
+            Process[] ps = Process.GetProcesses();
+            List<Process> processes = new List<Process>(ps);
+            for (int j = 0; j < 50; j++)
+            {
+                TcpConnectionTableHelper.MIB_TCPROW_OWNER_PID[] tcpProgressInfoTable = TcpConnectionTableHelper.GetAllTcpConnections();
+                int tableRowCount = tcpProgressInfoTable.Length;
+
+                for (int i = 0; i < tableRowCount; i++)
+                {
+                    TcpConnectionTableHelper.MIB_TCPROW_OWNER_PID row = tcpProgressInfoTable[i];
+                    if (row.LocalPort != port && row.RemotePort != port) continue;
+                    string source = string.Format("{0}:{1}", TcpConnectionTableHelper.GetIpAddress(row.localAddr), row.LocalPort);
+                    string dest = string.Format("{0}:{1}", TcpConnectionTableHelper.GetIpAddress(row.remoteAddr), row.RemotePort);
+                    string outputRow = string.Format("{0, -7}{1, -23}{2, -23}{3, -16}{4}", "TCP", source, dest, (TCP_CONNECTION_STATE)row.state, row.owningPid);
+                    Process proname = processes.Find(x =>
+                    {
+                        if (x.Id == row.owningPid) return true;
+                        else return false;
+                    });
+                    if (!rows.Contains(outputRow))
+                    {
+                        rows.Add(outputRow);
+                        Scan scan = new Scan("TCP", source, dest, (TCP_CONNECTION_STATE)row.state, row.owningPid, proname.ProcessName);
+                        scanList.Add(scan);
+                    }
+                }
+                this.Invoke(new Action(() => {
+                    progressBar.Increment(2);
+                }));
+            }
+            this.Invoke(new Action(() => {
+                foreach (var item in scanList)
+                {
+                    int index = dataGridViewPort.Rows.Add();
+                    dataGridViewPort.Rows[index].Cells["Proto"].Value = item.type;
+                    dataGridViewPort.Rows[index].Cells["LocalAddress"].Value = item.source;
+                    dataGridViewPort.Rows[index].Cells["ForeignAddress"].Value = item.dest;
+                    dataGridViewPort.Rows[index].Cells["State"].Value = item.state;
+                    dataGridViewPort.Rows[index].Cells["PID"].Value = item.owningPid;
+                    dataGridViewPort.Rows[index].Cells["PName"].Value = item.ProcessName;
+                }
+                buttonEnd.Enabled = true;
+                buttonStart.Enabled = true;
+                buttonFind.Enabled = true;
                 labelMsg.Text = "扫描完成";
                 progressBar.Value = 0;
             }));
@@ -397,5 +457,25 @@ namespace PortKill
         static extern uint GetModuleFileNameEx(IntPtr hProcess, IntPtr hModule, [Out] StringBuilder lpBaseName, [In] [MarshalAs(UnmanagedType.U4)] int nSize);
         [DllImport("Kernel32.dll")]
         public extern static bool CloseHandle(IntPtr hObject);
+
+        private void buttonFind_Click(object sender, EventArgs e)
+        {
+            int port;
+            bool b = int.TryParse(textBoxFind.Text, out port);
+            if (!b)
+            {
+                MessageBox.Show("请输入正确的端口号");
+                return;
+            }
+            buttonEnd.Enabled = false;
+            buttonStart.Enabled = false;
+            buttonFind.Enabled = false;
+            labelMsg.Text = "正在扫描端口";
+            progressBar.Value = 0;
+            dataGridViewPort.Rows.Clear();
+            new Thread(() => {
+                MonitorTcpConnections(port);
+            }).Start();
+        }
     }
 }
