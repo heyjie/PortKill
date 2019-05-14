@@ -273,14 +273,14 @@ namespace PortKill
                 return;
             }
             int pid = (int)selectRows[0].Cells["PID"].Value;
-            Process process = Process.GetProcessById(pid);
-            if (process == null)
-            {
-                MessageBox.Show("获取进程相关信息失败,请尝试重新操作");
-                return;
-            }
             try
             {
+                Process process = Process.GetProcessById(pid);
+                if (process == null)
+                {
+                    MessageBox.Show("获取进程相关信息失败,请尝试重新操作");
+                    return;
+                }
                 process.Kill();
                 process.WaitForExit();
                 process.Close();
