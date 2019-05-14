@@ -99,7 +99,9 @@
       <SubType>Designer</SubType>
     </None>
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <None Include="Resource\win.ico" />
+  </ItemGroup>
   <ItemGroup>
     <None Include="Resource\port.ico" />
   </ItemGroup>

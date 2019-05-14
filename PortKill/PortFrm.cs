@@ -59,7 +59,14 @@ namespace PortKill
                 {
                     Console.Out.WriteLine(ex.Message);
                 }
-                dataGridViewPort.Rows[e.RowIndex].Cells["ProcessIcon"].Value = ico;
+                if(ico!=null)
+                {
+                    dataGridViewPort.Rows[e.RowIndex].Cells["ProcessIcon"].Value = ico;
+                }
+                else
+                {
+                    dataGridViewPort.Rows[e.RowIndex].Cells["ProcessIcon"].Value = global::PortKill.Properties.Resources.win; ;
+                }
             }
         }
 
@@ -486,5 +493,22 @@ namespace PortKill
         static extern uint GetModuleFileNameEx(IntPtr hProcess, IntPtr hModule, [Out] StringBuilder lpBaseName, [In] [MarshalAs(UnmanagedType.U4)] int nSize);
         [DllImport("Kernel32.dll")]
         public extern static bool CloseHandle(IntPtr hObject);
+
+        [DllImport("User32.dll")]
+        public static extern int PrivateExtractIcons(
+            string lpszFile, //file name
+            int nIconIndex,  //The zero-based index of the first icon to extract.
+            int cxIcon,      //The horizontal icon size wanted.
+            int cyIcon,      //The vertical icon size wanted.
+            IntPtr[] phicon, //(out) A pointer to the returned array of icon handles.
+            int[] piconid,   //(out) A pointer to a returned resource identifier.
+            int nIcons,      //The number of icons to extract from the file. Only valid when *.exe and *.dll
+            int flags        //Specifies flags that control this function.
+        );
+
+        [DllImport("User32.dll")]
+        public static extern bool DestroyIcon(
+            IntPtr hIcon //A handle to the icon to be destroyed. The icon must not be in use.
+        );
     }
 }
