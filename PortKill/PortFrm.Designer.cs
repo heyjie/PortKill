@@ -36,13 +36,6 @@ namespace PortKill
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.tabPage1 = new System.Windows.Forms.TabPage();
             this.dataGridViewPort = new System.Windows.Forms.DataGridView();
-            this.ProcessIcon = new System.Windows.Forms.DataGridViewImageColumn();
-            this.Proto = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.LocalAddress = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.ForeignAddress = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.State = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.PID = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.PName = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.panel2 = new System.Windows.Forms.Panel();
             this.labelMsg = new System.Windows.Forms.Label();
             this.progressBar = new PortKill.Control.MyProgressBar();
@@ -55,6 +48,13 @@ namespace PortKill
             this.comboBox1 = new System.Windows.Forms.ComboBox();
             this.button5 = new System.Windows.Forms.Button();
             this.textBox4 = new System.Windows.Forms.TextBox();
+            this.ProcessIcon = new System.Windows.Forms.DataGridViewImageColumn();
+            this.Proto = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.LocalAddress = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.ForeignAddress = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.State = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.PID = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.PName = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewPort)).BeginInit();
@@ -99,7 +99,7 @@ namespace PortKill
             this.tabControl1.Margin = new System.Windows.Forms.Padding(4);
             this.tabControl1.Name = "tabControl1";
             this.tabControl1.SelectedIndex = 0;
-            this.tabControl1.Size = new System.Drawing.Size(779, 452);
+            this.tabControl1.Size = new System.Drawing.Size(882, 503);
             this.tabControl1.TabIndex = 7;
             // 
             // tabPage1
@@ -113,7 +113,7 @@ namespace PortKill
             this.tabPage1.Margin = new System.Windows.Forms.Padding(4);
             this.tabPage1.Name = "tabPage1";
             this.tabPage1.Padding = new System.Windows.Forms.Padding(4);
-            this.tabPage1.Size = new System.Drawing.Size(771, 423);
+            this.tabPage1.Size = new System.Drawing.Size(874, 474);
             this.tabPage1.TabIndex = 0;
             this.tabPage1.Text = "端口查杀";
             // 
@@ -139,55 +139,8 @@ namespace PortKill
             this.dataGridViewPort.RowHeadersVisible = false;
             this.dataGridViewPort.RowTemplate.Height = 30;
             this.dataGridViewPort.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.dataGridViewPort.Size = new System.Drawing.Size(763, 331);
+            this.dataGridViewPort.Size = new System.Drawing.Size(866, 382);
             this.dataGridViewPort.TabIndex = 8;
-            // 
-            // ProcessIcon
-            // 
-            this.ProcessIcon.HeaderText = "";
-            this.ProcessIcon.Name = "ProcessIcon";
-            this.ProcessIcon.Resizable = System.Windows.Forms.DataGridViewTriState.True;
-            this.ProcessIcon.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic;
-            this.ProcessIcon.Width = 50;
-            // 
-            // Proto
-            // 
-            this.Proto.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
-            this.Proto.HeaderText = "协议";
-            this.Proto.MinimumWidth = 50;
-            this.Proto.Name = "Proto";
-            // 
-            // LocalAddress
-            // 
-            this.LocalAddress.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
-            this.LocalAddress.HeaderText = "本机地址";
-            this.LocalAddress.Name = "LocalAddress";
-            // 
-            // ForeignAddress
-            // 
-            this.ForeignAddress.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
-            this.ForeignAddress.HeaderText = "远程地址";
-            this.ForeignAddress.MinimumWidth = 50;
-            this.ForeignAddress.Name = "ForeignAddress";
-            // 
-            // State
-            // 
-            this.State.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
-            this.State.HeaderText = "状态";
-            this.State.MinimumWidth = 50;
-            this.State.Name = "State";
-            // 
-            // PID
-            // 
-            this.PID.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
-            this.PID.HeaderText = "进程ID";
-            this.PID.MinimumWidth = 50;
-            this.PID.Name = "PID";
-            // 
-            // PName
-            // 
-            this.PName.HeaderText = "进程名";
-            this.PName.Name = "PName";
             // 
             // panel2
             // 
@@ -198,7 +151,7 @@ namespace PortKill
             this.panel2.Dock = System.Windows.Forms.DockStyle.Top;
             this.panel2.Location = new System.Drawing.Point(4, 4);
             this.panel2.Name = "panel2";
-            this.panel2.Size = new System.Drawing.Size(763, 46);
+            this.panel2.Size = new System.Drawing.Size(866, 46);
             this.panel2.TabIndex = 12;
             // 
             // labelMsg
@@ -206,7 +159,7 @@ namespace PortKill
             this.labelMsg.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.labelMsg.AutoSize = true;
             this.labelMsg.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(51)))), ((int)(((byte)(153)))), ((int)(((byte)(255)))));
-            this.labelMsg.Location = new System.Drawing.Point(612, 16);
+            this.labelMsg.Location = new System.Drawing.Point(715, 16);
             this.labelMsg.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.labelMsg.Name = "labelMsg";
             this.labelMsg.Size = new System.Drawing.Size(52, 15);
@@ -218,7 +171,7 @@ namespace PortKill
             this.progressBar.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.progressBar.BackColor = System.Drawing.Color.Black;
             this.progressBar.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(51)))), ((int)(((byte)(153)))), ((int)(((byte)(153)))));
-            this.progressBar.Location = new System.Drawing.Point(471, 9);
+            this.progressBar.Location = new System.Drawing.Point(574, 9);
             this.progressBar.Margin = new System.Windows.Forms.Padding(4);
             this.progressBar.Name = "progressBar";
             this.progressBar.Size = new System.Drawing.Size(133, 29);
@@ -229,9 +182,9 @@ namespace PortKill
             this.panel1.Controls.Add(this.textBoxFind);
             this.panel1.Controls.Add(this.buttonFind);
             this.panel1.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.panel1.Location = new System.Drawing.Point(4, 381);
+            this.panel1.Location = new System.Drawing.Point(4, 432);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(763, 38);
+            this.panel1.Size = new System.Drawing.Size(866, 38);
             this.panel1.TabIndex = 15;
             // 
             // textBoxFind
@@ -239,7 +192,7 @@ namespace PortKill
             this.textBoxFind.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.textBoxFind.BackColor = System.Drawing.SystemColors.Window;
             this.textBoxFind.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(51)))), ((int)(((byte)(153)))), ((int)(((byte)(255)))));
-            this.textBoxFind.Location = new System.Drawing.Point(187, 6);
+            this.textBoxFind.Location = new System.Drawing.Point(290, 6);
             this.textBoxFind.Name = "textBoxFind";
             this.textBoxFind.Size = new System.Drawing.Size(445, 25);
             this.textBoxFind.TabIndex = 13;
@@ -251,7 +204,7 @@ namespace PortKill
             this.buttonFind.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.buttonFind.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.buttonFind.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(51)))), ((int)(((byte)(153)))), ((int)(((byte)(255)))));
-            this.buttonFind.Location = new System.Drawing.Point(638, 4);
+            this.buttonFind.Location = new System.Drawing.Point(741, 4);
             this.buttonFind.Name = "buttonFind";
             this.buttonFind.Size = new System.Drawing.Size(121, 29);
             this.buttonFind.TabIndex = 12;
@@ -336,11 +289,56 @@ namespace PortKill
             this.textBox4.TabIndex = 1;
             this.textBox4.Text = "请输入调试命令";
             // 
+            // ProcessIcon
+            // 
+            this.ProcessIcon.HeaderText = "";
+            this.ProcessIcon.Name = "ProcessIcon";
+            this.ProcessIcon.Resizable = System.Windows.Forms.DataGridViewTriState.True;
+            this.ProcessIcon.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic;
+            this.ProcessIcon.Width = 50;
+            // 
+            // Proto
+            // 
+            this.Proto.HeaderText = "协议";
+            this.Proto.Name = "Proto";
+            this.Proto.Width = 80;
+            // 
+            // LocalAddress
+            // 
+            this.LocalAddress.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
+            this.LocalAddress.HeaderText = "本机地址";
+            this.LocalAddress.Name = "LocalAddress";
+            // 
+            // ForeignAddress
+            // 
+            this.ForeignAddress.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
+            this.ForeignAddress.HeaderText = "远程地址";
+            this.ForeignAddress.Name = "ForeignAddress";
+            // 
+            // State
+            // 
+            this.State.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
+            this.State.FillWeight = 80F;
+            this.State.HeaderText = "状态";
+            this.State.Name = "State";
+            // 
+            // PID
+            // 
+            this.PID.HeaderText = "进程ID";
+            this.PID.Name = "PID";
+            // 
+            // PName
+            // 
+            this.PName.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
+            this.PName.FillWeight = 80F;
+            this.PName.HeaderText = "进程名";
+            this.PName.Name = "PName";
+            // 
             // PortFrm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(779, 452);
+            this.ClientSize = new System.Drawing.Size(882, 503);
             this.Controls.Add(this.tabControl1);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Margin = new System.Windows.Forms.Padding(4);
@@ -379,6 +377,7 @@ namespace PortKill
         private System.Windows.Forms.Button buttonFind;
         private System.Windows.Forms.Panel panel1;
         private System.Windows.Forms.Panel panel2;
+        private System.Windows.Forms.Panel panel3;
         private System.Windows.Forms.DataGridViewImageColumn ProcessIcon;
         private System.Windows.Forms.DataGridViewTextBoxColumn Proto;
         private System.Windows.Forms.DataGridViewTextBoxColumn LocalAddress;
@@ -386,7 +385,6 @@ namespace PortKill
         private System.Windows.Forms.DataGridViewTextBoxColumn State;
         private System.Windows.Forms.DataGridViewTextBoxColumn PID;
         private System.Windows.Forms.DataGridViewTextBoxColumn PName;
-        private System.Windows.Forms.Panel panel3;
     }
 }
 

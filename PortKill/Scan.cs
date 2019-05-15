@@ -25,5 +25,13 @@ namespace PortKill
             this.owningPid = owningPid;
             this.ProcessName = ProcessName;
         }
+        public Scan(string type, string source, string dest, TCP_CONNECTION_STATE state, int owningPid)
+        {
+            this.type = type;
+            this.source = source;
+            this.dest = dest;
+            this.state = state;
+            this.owningPid = owningPid;
+        }
     }
 }

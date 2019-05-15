@@ -319,8 +319,16 @@ namespace PortKill
                     if (!rows.Contains(outputRow))
                     {
                         rows.Add(outputRow);
-                        Scan scan = new Scan("TCP", source, dest, (TCP_CONNECTION_STATE)row.state, row.owningPid, proname.ProcessName);
-                        scanList.Add(scan);
+                        if(proname!=null)
+                        {
+                            Scan scan = new Scan("TCP", source, dest, (TCP_CONNECTION_STATE)row.state, row.owningPid, proname.ProcessName);
+                            scanList.Add(scan);
+                        }
+                        else
+                        {
+                            Scan scan = new Scan("TCP", source, dest, (TCP_CONNECTION_STATE)row.state, row.owningPid);
+                            scanList.Add(scan);
+                        }
                     }
                 }
                 this.Invoke(new Action(() => {
