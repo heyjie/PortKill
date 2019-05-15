@@ -36,6 +36,13 @@ namespace PortKill
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.tabPage1 = new System.Windows.Forms.TabPage();
             this.dataGridViewPort = new System.Windows.Forms.DataGridView();
+            this.ProcessIcon = new System.Windows.Forms.DataGridViewImageColumn();
+            this.Proto = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.LocalAddress = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.ForeignAddress = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.State = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.PID = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.PName = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.panel2 = new System.Windows.Forms.Panel();
             this.labelMsg = new System.Windows.Forms.Label();
             this.progressBar = new PortKill.Control.MyProgressBar();
@@ -48,13 +55,6 @@ namespace PortKill
             this.comboBox1 = new System.Windows.Forms.ComboBox();
             this.button5 = new System.Windows.Forms.Button();
             this.textBox4 = new System.Windows.Forms.TextBox();
-            this.ProcessIcon = new System.Windows.Forms.DataGridViewImageColumn();
-            this.Proto = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.LocalAddress = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.ForeignAddress = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.State = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.PID = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.PName = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewPort)).BeginInit();
@@ -136,11 +136,64 @@ namespace PortKill
             this.dataGridViewPort.Margin = new System.Windows.Forms.Padding(4);
             this.dataGridViewPort.MultiSelect = false;
             this.dataGridViewPort.Name = "dataGridViewPort";
+            this.dataGridViewPort.ReadOnly = true;
             this.dataGridViewPort.RowHeadersVisible = false;
             this.dataGridViewPort.RowTemplate.Height = 30;
             this.dataGridViewPort.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.dataGridViewPort.Size = new System.Drawing.Size(866, 382);
             this.dataGridViewPort.TabIndex = 8;
+            // 
+            // ProcessIcon
+            // 
+            this.ProcessIcon.HeaderText = "";
+            this.ProcessIcon.Name = "ProcessIcon";
+            this.ProcessIcon.ReadOnly = true;
+            this.ProcessIcon.Resizable = System.Windows.Forms.DataGridViewTriState.True;
+            this.ProcessIcon.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic;
+            this.ProcessIcon.Width = 50;
+            // 
+            // Proto
+            // 
+            this.Proto.HeaderText = "协议";
+            this.Proto.Name = "Proto";
+            this.Proto.ReadOnly = true;
+            this.Proto.Width = 80;
+            // 
+            // LocalAddress
+            // 
+            this.LocalAddress.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
+            this.LocalAddress.HeaderText = "本机地址";
+            this.LocalAddress.Name = "LocalAddress";
+            this.LocalAddress.ReadOnly = true;
+            // 
+            // ForeignAddress
+            // 
+            this.ForeignAddress.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
+            this.ForeignAddress.HeaderText = "远程地址";
+            this.ForeignAddress.Name = "ForeignAddress";
+            this.ForeignAddress.ReadOnly = true;
+            // 
+            // State
+            // 
+            this.State.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
+            this.State.FillWeight = 80F;
+            this.State.HeaderText = "状态";
+            this.State.Name = "State";
+            this.State.ReadOnly = true;
+            // 
+            // PID
+            // 
+            this.PID.HeaderText = "进程ID";
+            this.PID.Name = "PID";
+            this.PID.ReadOnly = true;
+            // 
+            // PName
+            // 
+            this.PName.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
+            this.PName.FillWeight = 80F;
+            this.PName.HeaderText = "进程名";
+            this.PName.Name = "PName";
+            this.PName.ReadOnly = true;
             // 
             // panel2
             // 
@@ -221,7 +274,7 @@ namespace PortKill
             this.tabPage2.Margin = new System.Windows.Forms.Padding(4);
             this.tabPage2.Name = "tabPage2";
             this.tabPage2.Padding = new System.Windows.Forms.Padding(4);
-            this.tabPage2.Size = new System.Drawing.Size(771, 423);
+            this.tabPage2.Size = new System.Drawing.Size(874, 474);
             this.tabPage2.TabIndex = 1;
             this.tabPage2.Text = "调试界面";
             // 
@@ -235,7 +288,7 @@ namespace PortKill
             this.textBox3.Multiline = true;
             this.textBox3.Name = "textBox3";
             this.textBox3.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
-            this.textBox3.Size = new System.Drawing.Size(763, 326);
+            this.textBox3.Size = new System.Drawing.Size(866, 377);
             this.textBox3.TabIndex = 0;
             // 
             // panel3
@@ -246,7 +299,7 @@ namespace PortKill
             this.panel3.Dock = System.Windows.Forms.DockStyle.Top;
             this.panel3.Location = new System.Drawing.Point(4, 4);
             this.panel3.Name = "panel3";
-            this.panel3.Size = new System.Drawing.Size(763, 89);
+            this.panel3.Size = new System.Drawing.Size(866, 89);
             this.panel3.TabIndex = 4;
             // 
             // comboBox1
@@ -288,51 +341,6 @@ namespace PortKill
             this.textBox4.Size = new System.Drawing.Size(587, 25);
             this.textBox4.TabIndex = 1;
             this.textBox4.Text = "请输入调试命令";
-            // 
-            // ProcessIcon
-            // 
-            this.ProcessIcon.HeaderText = "";
-            this.ProcessIcon.Name = "ProcessIcon";
-            this.ProcessIcon.Resizable = System.Windows.Forms.DataGridViewTriState.True;
-            this.ProcessIcon.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic;
-            this.ProcessIcon.Width = 50;
-            // 
-            // Proto
-            // 
-            this.Proto.HeaderText = "协议";
-            this.Proto.Name = "Proto";
-            this.Proto.Width = 80;
-            // 
-            // LocalAddress
-            // 
-            this.LocalAddress.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
-            this.LocalAddress.HeaderText = "本机地址";
-            this.LocalAddress.Name = "LocalAddress";
-            // 
-            // ForeignAddress
-            // 
-            this.ForeignAddress.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
-            this.ForeignAddress.HeaderText = "远程地址";
-            this.ForeignAddress.Name = "ForeignAddress";
-            // 
-            // State
-            // 
-            this.State.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
-            this.State.FillWeight = 80F;
-            this.State.HeaderText = "状态";
-            this.State.Name = "State";
-            // 
-            // PID
-            // 
-            this.PID.HeaderText = "进程ID";
-            this.PID.Name = "PID";
-            // 
-            // PName
-            // 
-            this.PName.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
-            this.PName.FillWeight = 80F;
-            this.PName.HeaderText = "进程名";
-            this.PName.Name = "PName";
             // 
             // PortFrm
             // 

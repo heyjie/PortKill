@@ -256,7 +256,7 @@ namespace PortKill
             buttonEnd.Enabled = false;
             buttonStart.Enabled = false;
             buttonFind.Enabled = false;
-            labelMsg.Text = "正在扫描端口";
+            labelMsg.Text = "正在搜索端口";
             progressBar.Value = 0;
             dataGridViewPort.Rows.Clear();
             new Thread(() => {
@@ -300,7 +300,7 @@ namespace PortKill
             List<String> rows = new List<string>();
             Process[] ps = Process.GetProcesses();
             List<Process> processes = new List<Process>(ps);
-            for (int j = 0; j < 50; j++)
+            for (int j = 0; j <= 50; j++)
             {
                 TcpConnectionTableHelper.MIB_TCPROW_OWNER_PID[] tcpProgressInfoTable = TcpConnectionTableHelper.GetAllTcpConnections();
                 int tableRowCount = tcpProgressInfoTable.Length;
@@ -350,7 +350,10 @@ namespace PortKill
                 buttonStart.Enabled = true;
                 buttonFind.Enabled = true;
                 labelMsg.Text = "扫描完成";
-                progressBar.Value = 0;
+                System.Windows.Forms.Timer timer = new System.Windows.Forms.Timer();
+                timer.Interval = 1500;
+                timer.Tick += (s, e) => { progressBar.Value = 0; timer.Stop(); };
+                timer.Start();
             }));
         }
 
@@ -361,7 +364,7 @@ namespace PortKill
             List<String> rows = new List<string>();
             Process[] ps = Process.GetProcesses();
             List<Process> processes = new List<Process>(ps);
-            for (int j = 0; j < 50; j++)
+            for (int j = 0; j <= 50; j++)
             {
                 TcpConnectionTableHelper.MIB_TCPROW_OWNER_PID[] tcpProgressInfoTable = TcpConnectionTableHelper.GetAllTcpConnections();
                 int tableRowCount = tcpProgressInfoTable.Length;
@@ -403,8 +406,11 @@ namespace PortKill
                 buttonEnd.Enabled = true;
                 buttonStart.Enabled = true;
                 buttonFind.Enabled = true;
-                labelMsg.Text = "扫描完成";
-                progressBar.Value = 0;
+                labelMsg.Text = "搜索完成";
+                System.Windows.Forms.Timer timer = new System.Windows.Forms.Timer();
+                timer.Interval = 1500;
+                timer.Tick += (s, e) => { progressBar.Value = 0; timer.Stop(); };
+                timer.Start();
             }));
         }
 
