@@ -30,6 +30,7 @@ namespace PortKill
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(PortFrm));
             this.buttonEnd = new System.Windows.Forms.Button();
             this.buttonStart = new System.Windows.Forms.Button();
@@ -43,6 +44,9 @@ namespace PortKill
             this.State = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.PID = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.PName = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.contextMenuStrip1 = new System.Windows.Forms.ContextMenuStrip(this.components);
+            this.refToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.closeToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.panel2 = new System.Windows.Forms.Panel();
             this.labelMsg = new System.Windows.Forms.Label();
             this.progressBar = new PortKill.Control.MyProgressBar();
@@ -58,6 +62,7 @@ namespace PortKill
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewPort)).BeginInit();
+            this.contextMenuStrip1.SuspendLayout();
             this.panel2.SuspendLayout();
             this.panel1.SuspendLayout();
             this.tabPage2.SuspendLayout();
@@ -131,6 +136,7 @@ namespace PortKill
             this.State,
             this.PID,
             this.PName});
+            this.dataGridViewPort.ContextMenuStrip = this.contextMenuStrip1;
             this.dataGridViewPort.Dock = System.Windows.Forms.DockStyle.Fill;
             this.dataGridViewPort.Location = new System.Drawing.Point(4, 50);
             this.dataGridViewPort.Margin = new System.Windows.Forms.Padding(4);
@@ -194,6 +200,29 @@ namespace PortKill
             this.PName.HeaderText = "进程名";
             this.PName.Name = "PName";
             this.PName.ReadOnly = true;
+            // 
+            // contextMenuStrip1
+            // 
+            this.contextMenuStrip1.ImageScalingSize = new System.Drawing.Size(20, 20);
+            this.contextMenuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.refToolStripMenuItem,
+            this.closeToolStripMenuItem});
+            this.contextMenuStrip1.Name = "contextMenuStrip1";
+            this.contextMenuStrip1.Size = new System.Drawing.Size(211, 80);
+            // 
+            // refToolStripMenuItem
+            // 
+            this.refToolStripMenuItem.Name = "refToolStripMenuItem";
+            this.refToolStripMenuItem.Size = new System.Drawing.Size(210, 24);
+            this.refToolStripMenuItem.Text = "刷新";
+            this.refToolStripMenuItem.Click += new System.EventHandler(this.refToolStripMenuItem_Click);
+            // 
+            // closeToolStripMenuItem
+            // 
+            this.closeToolStripMenuItem.Name = "closeToolStripMenuItem";
+            this.closeToolStripMenuItem.Size = new System.Drawing.Size(210, 24);
+            this.closeToolStripMenuItem.Text = "关闭";
+            this.closeToolStripMenuItem.Click += new System.EventHandler(this.closeToolStripMenuItem_Click);
             // 
             // panel2
             // 
@@ -355,6 +384,7 @@ namespace PortKill
             this.tabControl1.ResumeLayout(false);
             this.tabPage1.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewPort)).EndInit();
+            this.contextMenuStrip1.ResumeLayout(false);
             this.panel2.ResumeLayout(false);
             this.panel2.PerformLayout();
             this.panel1.ResumeLayout(false);
@@ -393,6 +423,9 @@ namespace PortKill
         private System.Windows.Forms.DataGridViewTextBoxColumn State;
         private System.Windows.Forms.DataGridViewTextBoxColumn PID;
         private System.Windows.Forms.DataGridViewTextBoxColumn PName;
+        private System.Windows.Forms.ContextMenuStrip contextMenuStrip1;
+        private System.Windows.Forms.ToolStripMenuItem refToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem closeToolStripMenuItem;
     }
 }
 

@@ -524,5 +524,15 @@ namespace PortKill
         public static extern bool DestroyIcon(
             IntPtr hIcon //A handle to the icon to be destroyed. The icon must not be in use.
         );
+
+        private void refToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            buttonStart.PerformClick();
+        }
+
+        private void closeToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            buttonEnd.PerformClick();
+        }
     }
 }
