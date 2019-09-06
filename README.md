@@ -5,7 +5,7 @@
 
 ## PortKlii是什么?
 在做开发的时候发现总有端口被占用，这个程序是为了解决端口占用。
-可以直接运行PortKill\bin\Debug目录下的PortKill.exe来启动程序。
+打开网站下载exe程序就能直接运行 https://github.com/Eugene9656/PortKill/releases/tag/v1.0
 
 ## PortKlii有哪些功能？
 
