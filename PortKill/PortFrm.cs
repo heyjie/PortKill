@@ -534,5 +534,87 @@ namespace PortKill
         {
             buttonEnd.PerformClick();
         }
+
+        //打开文件夹
+        private void toolStripMenuItem1_Click(object sender, EventArgs e)
+        {
+            var selectRows = dataGridViewPort.SelectedRows;
+            if (selectRows.Count == 0)
+            {
+                return;
+            }
+            int pid = (int)selectRows[0].Cells["PID"].Value;
+            Process process = Process.GetProcessById(pid);
+            if (process == null)
+            {
+                MessageBox.Show("获取进程相关信息失败,请尝试重新操作");
+                return;
+            }
+            string filePath = process.MainModule.FileName;
+            try
+            {
+                if (!File.Exists(filePath) && !Directory.Exists(filePath))
+                    return;
+                if (Directory.Exists(filePath))
+                    Process.Start(@"explorer.exe", "/select,\"" + filePath + "\"");
+                else
+                {
+                    IntPtr pidlList = TcpConnectionTableHelper.ILCreateFromPathW(filePath);
+                    if (pidlList != IntPtr.Zero)
+                    {
+                        try
+                        {
+                            Marshal.ThrowExceptionForHR(TcpConnectionTableHelper.SHOpenFolderAndSelectItems(pidlList, 0, IntPtr.Zero, 0));
+                        }
+                        finally
+                        {
+                            TcpConnectionTableHelper.ILFree(pidlList);
+                        }
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show( "打开文件夹失败\n" + ex.ToString(), "系统错误", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+
+        //复制路径
+        private void toolStripMenuItem2_Click(object sender, EventArgs e)
+        {
+            var selectRows = dataGridViewPort.SelectedRows;
+            if (selectRows.Count == 0)
+            {
+                return;
+            }
+            int pid = (int)selectRows[0].Cells["PID"].Value;
+            Process process = Process.GetProcessById(pid);
+            if (process == null)
+            {
+                MessageBox.Show("获取进程相关信息失败,请尝试重新操作");
+                return;
+            }
+            string filePath = process.MainModule.FileName;
+            Clipboard.SetDataObject(filePath, true);
+        }
+
+        //属性
+        private void toolStripMenuItem3_Click(object sender, EventArgs e)
+        {
+            var selectRows = dataGridViewPort.SelectedRows;
+            if (selectRows.Count == 0)
+            {
+                return;
+            }
+            int pid = (int)selectRows[0].Cells["PID"].Value;
+            Process process = Process.GetProcessById(pid);
+            if (process == null)
+            {
+                MessageBox.Show("获取进程相关信息失败,请尝试重新操作");
+                return;
+            }
+            string filePath = process.MainModule.FileName;
+            TcpConnectionTableHelper.ShowFileProperties(filePath);
+        }
     }
 }
